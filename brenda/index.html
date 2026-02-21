@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brenda's Crystal Constellation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --deep:#0d0a1f;
+  --mid:#1a1535;
+  --amethyst:#9b59b6;
+  --amethyst-light:#d2b4de;
+  --electric:#7ec8e3;
+  --silver:#c0c5ce;
+  --rose:#e8b4b8;
+  --gold:#d4a96a;
+  --cream:#faf3e8;
+  --violet:#8e7cc3;
+  --paris-rose:#f0c4c8;
+  --crystal-prism:#a8e6cf;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Quicksand',sans-serif;
+  background:var(--deep);
+  color:#e0daf0;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* ===== STARFIELD ===== */
+#starfield{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:0;pointer-events:none;
+}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(13,10,31,0.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(155,89,182,0.15);
+  padding:0.8rem 2rem;
+  display:flex;justify-content:center;gap:2rem;
+  flex-wrap:wrap;
+}
+nav a{
+  color:var(--amethyst-light);text-decoration:none;
+  font-size:0.8rem;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:500;transition:all 0.3s;position:relative;
+}
+nav a::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;
+  background:linear-gradient(90deg,var(--gold),var(--paris-rose));
+  transition:width 0.3s;
+}
+nav a:hover{color:var(--cream)}
+nav a:hover::after{width:100%}
+
+/* ===== SECTIONS ===== */
+section{
+  position:relative;z-index:1;
+  min-height:100vh;
+  padding:6rem 2rem 4rem;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+
+/* ===== HERO ===== */
+#hero{
+  text-align:center;
+  background:radial-gradient(ellipse at 50% 30%,rgba(155,89,182,0.1),transparent 60%);
+}
+.hero-icon{
+  font-size:4rem;
+  animation:floatGentle 4s ease-in-out infinite;
+  filter:drop-shadow(0 0 25px rgba(155,89,182,0.4));
+}
+@keyframes floatGentle{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.8rem,6vw,5.5rem);
+  font-weight:300;
+  background:linear-gradient(135deg,var(--cream),var(--gold),var(--paris-rose),var(--amethyst-light));
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shimmer 5s ease-in-out infinite;
+  margin:0.8rem 0;
+  letter-spacing:3px;
+}
+@keyframes shimmer{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+.hero-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1rem,2.5vw,1.3rem);
+  color:var(--amethyst-light);
+  letter-spacing:5px;text-transform:uppercase;
+  font-weight:300;
+}
+.hero-sign{
+  font-size:1.1rem;color:var(--electric);
+  margin-top:1rem;letter-spacing:2px;
+}
+.hero-sign .symbol{font-size:1.8rem;vertical-align:middle}
+.hero-quote{
+  margin-top:1.5rem;max-width:520px;text-align:center;
+  line-height:1.8;color:var(--silver);
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem;font-style:italic;
+}
+.scroll-hint{
+  margin-top:3rem;animation:bounce 2s infinite;
+  color:var(--amethyst-light);font-size:1.3rem;opacity:0.5;
+}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+/* ===== SECTION TITLES ===== */
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  text-align:center;margin-bottom:0.5rem;
+  font-weight:300;letter-spacing:2px;
+}
+.section-subtitle{
+  text-align:center;color:var(--silver);
+  font-size:0.9rem;letter-spacing:3px;
+  margin-bottom:2rem;font-weight:300;
+}
+
+/* ===== BIRTH CHART ===== */
+#birthchart{
+  background:radial-gradient(ellipse at 30% 70%,rgba(126,200,227,0.06),transparent 50%);
+}
+.chart-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.5rem;max-width:1100px;width:100%;
+  margin-top:2rem;
+}
+.chart-card{
+  background:linear-gradient(135deg,rgba(26,21,53,0.8),rgba(13,10,31,0.9));
+  border:1px solid rgba(155,89,182,0.15);
+  border-radius:16px;padding:2rem;
+  text-align:center;transition:all 0.4s;
+  position:relative;overflow:hidden;
+}
+.chart-card::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(212,169,106,0.05),transparent);
+  transition:left 0.8s;
+}
+.chart-card:hover::before{left:100%}
+.chart-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(212,169,106,0.3);
+  box-shadow:0 8px 30px rgba(155,89,182,0.1);
+}
+.chart-icon{font-size:2.2rem;margin-bottom:0.8rem}
+.chart-label{
+  font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.3rem;
+}
+.chart-value{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;color:var(--cream);font-weight:400;
+}
+.chart-desc{
+  font-size:0.85rem;color:var(--silver);
+  margin-top:0.5rem;line-height:1.6;
+}
+
+/* ===== CRYSTAL ORACLE ===== */
+#oracle{
+  background:radial-gradient(ellipse at 70% 30%,rgba(168,230,207,0.06),transparent 50%);
+}
+.oracle-deck{
+  display:flex;gap:1.5rem;flex-wrap:wrap;
+  justify-content:center;max-width:900px;
+  margin:1rem 0 2rem;
+}
+.oracle-card{
+  width:155px;height:235px;
+  perspective:800px;cursor:pointer;
+}
+.oracle-card-inner{
+  width:100%;height:100%;position:relative;
+  transition:transform 0.8s cubic-bezier(0.175,0.885,0.32,1.275);
+  transform-style:preserve-3d;
+}
+.oracle-card.flipped .oracle-card-inner{transform:rotateY(180deg)}
+.oracle-front,.oracle-back{
+  position:absolute;width:100%;height:100%;
+  backface-visibility:hidden;border-radius:14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:1rem;
+}
+.oracle-front{
+  background:linear-gradient(135deg,var(--mid),#2a1f45);
+  border:1px solid rgba(155,89,182,0.3);
+  font-size:2.5rem;
+}
+.oracle-front::after{
+  content:'Reveal';position:absolute;bottom:1rem;
+  font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--amethyst-light);
+}
+.oracle-back{
+  background:linear-gradient(135deg,#1a0f30,var(--mid));
+  border:1px solid var(--gold);
+  transform:rotateY(180deg);
+  text-align:center;
+}
+.oracle-back .msg-icon{font-size:1.8rem;margin-bottom:0.5rem}
+.oracle-back .msg-text{font-size:0.78rem;line-height:1.6;color:var(--cream)}
+.oracle-back .msg-source{
+  font-size:0.6rem;color:var(--gold);
+  margin-top:0.8rem;letter-spacing:1px;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+}
+.oracle-reset{
+  background:linear-gradient(135deg,var(--amethyst),var(--violet));
+  border:none;color:#fff;padding:0.8rem 2.5rem;
+  border-radius:50px;cursor:pointer;font-family:'Quicksand',sans-serif;
+  font-size:0.85rem;font-weight:500;letter-spacing:2px;
+  text-transform:uppercase;transition:all 0.3s;
+  box-shadow:0 4px 20px rgba(155,89,182,0.25);
+}
+.oracle-reset:hover{transform:scale(1.05);box-shadow:0 6px 30px rgba(155,89,182,0.4)}
+
+/* ===== AQUARIUS DEEP DIVE ===== */
+#aquariusdive{
+  background:radial-gradient(ellipse at 60% 60%,rgba(126,200,227,0.06),transparent 50%);
+}
+.traits-container{max-width:900px;width:100%;margin-top:1.5rem}
+.trait-bar-group{margin-bottom:1.2rem}
+.trait-label{
+  display:flex;justify-content:space-between;
+  margin-bottom:0.4rem;font-size:0.9rem;
+}
+.trait-label span:first-child{color:var(--electric);font-weight:600}
+.trait-label span:last-child{color:var(--silver)}
+.trait-bar{
+  width:100%;height:8px;
+  background:rgba(255,255,255,0.06);
+  border-radius:10px;overflow:hidden;
+}
+.trait-bar-fill{
+  height:100%;border-radius:10px;
+  width:0;transition:width 1.5s cubic-bezier(0.22,1,0.36,1);
+}
+.aqua-facts{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1.5rem;max-width:900px;width:100%;margin-top:2rem;
+}
+.fact-card{
+  background:rgba(26,21,53,0.5);
+  border:1px solid rgba(155,89,182,0.12);
+  border-radius:14px;padding:1.5rem;transition:all 0.3s;
+}
+.fact-card:hover{
+  border-color:var(--gold);transform:translateY(-3px);
+}
+.fact-card h4{
+  color:var(--gold);margin-bottom:0.5rem;
+  font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+}
+.fact-card p{line-height:1.7;font-size:0.88rem}
+
+/* ===== COMPATIBILITY ===== */
+#compatibility{
+  background:radial-gradient(ellipse at 50% 50%,rgba(212,169,106,0.05),transparent 50%);
+}
+.compat-wheel{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1rem;max-width:600px;width:100%;margin:1rem 0 2rem;
+}
+@media(max-width:500px){.compat-wheel{grid-template-columns:repeat(3,1fr)}}
+.zodiac-btn{
+  background:rgba(26,21,53,0.6);
+  border:1px solid rgba(155,89,182,0.15);
+  border-radius:14px;padding:1rem 0.5rem;
+  color:#e0daf0;cursor:pointer;text-align:center;
+  transition:all 0.3s;font-family:'Quicksand',sans-serif;
+}
+.zodiac-btn:hover,.zodiac-btn.active{
+  border-color:var(--gold);
+  background:rgba(212,169,106,0.08);
+  transform:scale(1.05);
+  box-shadow:0 0 15px rgba(212,169,106,0.1);
+}
+.zodiac-btn .z-symbol{font-size:1.8rem;display:block}
+.zodiac-btn .z-name{font-size:0.68rem;letter-spacing:1px;margin-top:0.3rem}
+.compat-result{
+  max-width:600px;width:100%;
+  background:linear-gradient(135deg,rgba(26,21,53,0.8),rgba(13,10,31,0.9));
+  border:1px solid rgba(155,89,182,0.2);
+  border-radius:18px;padding:2rem;text-align:center;
+  min-height:200px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:all 0.5s;
+}
+.compat-meter{
+  width:100%;max-width:300px;height:10px;
+  background:rgba(255,255,255,0.08);
+  border-radius:10px;overflow:hidden;margin:1rem 0;
+}
+.compat-fill{
+  height:100%;border-radius:10px;
+  transition:width 1s cubic-bezier(0.22,1,0.36,1);width:0;
+}
+.compat-percent{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.5rem;color:var(--gold);
+}
+.compat-vibe{
+  font-size:0.95rem;color:var(--silver);
+  margin-top:0.5rem;line-height:1.7;
+}
+.compat-cats{font-size:1.3rem;margin-top:0.5rem}
+
+/* ===== CRYSTAL GUIDE ===== */
+#crystals{
+  background:radial-gradient(ellipse at 40% 40%,rgba(155,89,182,0.08),transparent 50%);
+}
+.crystal-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.5rem;max-width:1000px;width:100%;margin-top:1rem;
+}
+.crystal-card{
+  background:linear-gradient(135deg,rgba(26,21,53,0.7),rgba(13,10,31,0.85));
+  border:1px solid rgba(155,89,182,0.12);
+  border-radius:16px;padding:1.8rem;
+  text-align:center;transition:all 0.4s;cursor:pointer;
+}
+.crystal-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 8px 30px rgba(155,89,182,0.15);
+}
+.crystal-card .crystal-emoji{font-size:2.5rem;margin-bottom:0.5rem}
+.crystal-card .crystal-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;color:var(--cream);margin-bottom:0.3rem;
+}
+.crystal-card .crystal-power{
+  font-size:0.7rem;color:var(--gold);letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:0.5rem;
+}
+.crystal-card .crystal-msg{
+  font-size:0.82rem;line-height:1.6;color:var(--silver);
+}
+.crystal-card.selected{
+  border-color:var(--gold);
+  box-shadow:0 0 30px rgba(212,169,106,0.2);
+}
+
+/* ===== MOON PHASE ===== */
+#moonphase{
+  background:radial-gradient(ellipse at 50% 40%,rgba(192,197,206,0.06),transparent 50%);
+}
+.moon-display{
+  display:flex;flex-direction:column;align-items:center;
+  gap:1rem;margin:1rem 0;
+}
+.moon-visual{
+  width:170px;height:170px;border-radius:50%;
+  position:relative;
+  background:radial-gradient(circle at 40% 35%,#ffeedd,#ddd5c0,#bbb09a);
+  box-shadow:0 0 50px rgba(255,238,200,0.25),inset 0 0 25px rgba(0,0,0,0.1);
+  overflow:hidden;
+}
+.moon-shadow{
+  position:absolute;top:0;height:100%;
+  background:var(--deep);transition:all 1s;border-radius:50%;
+}
+.moon-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;color:var(--cream);
+}
+.moon-desc{
+  color:var(--silver);max-width:500px;
+  text-align:center;line-height:1.7;font-size:0.95rem;
+}
+.moon-cat-msg{
+  background:rgba(26,21,53,0.6);
+  border:1px solid rgba(155,89,182,0.15);
+  border-radius:14px;padding:1.5rem 2rem;
+  max-width:500px;text-align:center;margin-top:1rem;
+}
+.moon-cat-msg .cat-icon{font-size:1.8rem}
+.moon-cat-msg .cat-wisdom{
+  font-style:italic;color:var(--crystal-prism);
+  margin-top:0.5rem;line-height:1.6;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;
+}
+
+/* ===== COSMIC CAT ===== */
+#catgen{
+  background:radial-gradient(ellipse at 40% 50%,rgba(240,196,200,0.06),transparent 50%);
+}
+.cat-display{
+  width:240px;height:240px;border-radius:50%;
+  background:radial-gradient(circle,rgba(26,21,53,0.8),rgba(13,10,31,0.95));
+  border:1px solid var(--amethyst);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:1rem 0;cursor:pointer;transition:all 0.5s;position:relative;
+}
+.cat-display:hover{
+  box-shadow:0 0 40px rgba(155,89,182,0.25);
+  border-color:var(--gold);
+}
+.cat-display .cosmic-cat{font-size:4.5rem;transition:transform 0.5s}
+.cat-display:hover .cosmic-cat{transform:scale(1.1) rotate(3deg)}
+.cat-display .cat-sign{
+  font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--paris-rose);margin-top:0.5rem;
+}
+.cat-fortune{
+  max-width:500px;text-align:center;padding:1.5rem;
+  min-height:80px;font-size:1rem;line-height:1.7;
+  color:var(--silver);transition:all 0.5s;
+  font-family:'Cormorant Garamond',serif;
+}
+.cat-fortune.show{color:var(--cream)}
+.gen-btn{
+  background:linear-gradient(135deg,var(--gold),var(--paris-rose));
+  border:none;color:var(--deep);padding:0.8rem 2.5rem;
+  border-radius:50px;cursor:pointer;font-family:'Quicksand',sans-serif;
+  font-size:0.85rem;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;transition:all 0.3s;
+}
+.gen-btn:hover{transform:scale(1.05);box-shadow:0 4px 25px rgba(212,169,106,0.35)}
+
+/* ===== PARIS ===== */
+#paris{
+  background:radial-gradient(ellipse at 50% 50%,rgba(240,196,200,0.06),transparent 50%);
+}
+.paris-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;max-width:900px;width:100%;margin-top:1rem;
+}
+.paris-card{
+  background:linear-gradient(135deg,rgba(26,21,53,0.6),rgba(13,10,31,0.8));
+  border:1px solid rgba(212,169,106,0.12);
+  border-radius:14px;padding:1.8rem;transition:all 0.3s;
+}
+.paris-card:hover{
+  border-color:var(--paris-rose);transform:translateY(-3px);
+  box-shadow:0 6px 25px rgba(240,196,200,0.08);
+}
+.paris-card .paris-icon{font-size:2rem;margin-bottom:0.5rem}
+.paris-card h4{
+  font-family:'Cormorant Garamond',serif;
+  color:var(--paris-rose);margin-bottom:0.5rem;
+  font-size:1.1rem;font-weight:400;letter-spacing:1px;
+}
+.paris-card p{line-height:1.7;font-size:0.88rem;color:var(--silver)}
+
+/* ===== FOOTER ===== */
+footer{
+  position:relative;z-index:1;
+  text-align:center;padding:3rem 2rem;
+  border-top:1px solid rgba(155,89,182,0.1);
+  color:var(--silver);font-size:0.85rem;
+}
+footer .footer-icons{font-size:1.3rem;margin-bottom:0.5rem;letter-spacing:4px}
+footer .dedication{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;color:var(--paris-rose);margin-bottom:0.5rem;
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-in{opacity:0;transform:translateY(25px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+  nav{gap:0.8rem;padding:0.6rem 0.8rem}
+  nav a{font-size:0.65rem;letter-spacing:1px}
+  section{padding:5rem 1rem 3rem}
+  .oracle-card{width:125px;height:195px}
+  .compat-wheel{gap:0.5rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav>
+  <a href="#hero">Home</a>
+  <a href="#birthchart">Birth Chart</a>
+  <a href="#crystals">Crystals</a>
+  <a href="#oracle">Oracle</a>
+  <a href="#aquariusdive">Aquarius</a>
+  <a href="#compatibility">Compatibility</a>
+  <a href="#paris">Paris</a>
+  <a href="#moonphase">Moon</a>
+  <a href="#catgen">Cosmic Cat</a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-icon">🔮🐱✨</div>
+  <div class="hero-subtitle">A Celestial Space for</div>
+  <h1 class="hero-title">Brenda</h1>
+  <div class="hero-sign">
+    <span class="symbol">♒</span> Aquarius Sun &bull; February 1, 1966 &bull; Visionary &amp; Creator
+  </div>
+  <p class="hero-quote">
+    "She builds worlds — with her hands, her mind, and her boundless imagination.
+    The stars knew exactly what they were doing."
+  </p>
+  <div class="scroll-hint">↓</div>
+</section>
+
+<!-- ===== BIRTH CHART ===== -->
+<section id="birthchart">
+  <h2 class="section-title fade-in">✦ Brenda's Celestial Blueprint ✦</h2>
+  <p class="section-subtitle fade-in">February 1, 1966 — Written in the Stars</p>
+  <div class="chart-grid">
+    <div class="chart-card fade-in">
+      <div class="chart-icon">☀️</div>
+      <div class="chart-label">Sun Sign</div>
+      <div class="chart-value">♒ Aquarius</div>
+      <div class="chart-desc">The visionary of the zodiac. Independent, innovative, and always three steps ahead. You see what others can't — and then you build it.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">💨</div>
+      <div class="chart-label">Element</div>
+      <div class="chart-value">Air</div>
+      <div class="chart-desc">Intellectual brilliance and the gift of ideas that move. Air signs don't just think — they inspire. Your mind is your most beautiful room.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">⚡</div>
+      <div class="chart-label">Ruling Planet</div>
+      <div class="chart-value">Uranus</div>
+      <div class="chart-desc">Planet of revolution, originality, and sudden breakthroughs. Uranus doesn't follow the path — it creates new ones. Sound familiar, Brenda?</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">🏛️</div>
+      <div class="chart-label">Quality / Modality</div>
+      <div class="chart-value">Fixed</div>
+      <div class="chart-desc">Once you commit to a vision, nothing moves you. Fixed signs have the rare power to see things through to completion — no matter how long it takes.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">🐎</div>
+      <div class="chart-label">Chinese Zodiac</div>
+      <div class="chart-value">Fire Horse</div>
+      <div class="chart-desc">Rare and powerful. The Fire Horse is passionate, independent, and unstoppable once set on a course. Born leaders with magnetic energy.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">💜</div>
+      <div class="chart-label">Birthstone</div>
+      <div class="chart-value">Amethyst</div>
+      <div class="chart-desc">The stone of clarity and spiritual wisdom. Amethyst calms the brilliant Aquarian mind and opens channels to higher creative vision.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">🌸</div>
+      <div class="chart-label">Birth Flower</div>
+      <div class="chart-value">Violet</div>
+      <div class="chart-desc">Delicate in appearance, resilient in nature. Violets symbolize faithfulness, wisdom, and the quiet strength of someone who nurtures everything they touch.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">🏠</div>
+      <div class="chart-label">Zodiac House</div>
+      <div class="chart-value">11th House</div>
+      <div class="chart-desc">The house of community, hopes, and legacy. Your greatest work isn't just for you — it's meant to be shared, to uplift, to transform the spaces others live in.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CRYSTAL GUIDE ===== -->
+<section id="crystals">
+  <h2 class="section-title fade-in">💎 Brenda's Crystal Allies 💎</h2>
+  <p class="section-subtitle fade-in">Stones aligned with your Aquarian energy</p>
+  <div class="crystal-grid fade-in" id="crystalGrid"></div>
+  <div style="max-width:500px;text-align:center;margin-top:1.5rem;padding:1.2rem;border-radius:14px;background:rgba(26,21,53,0.5);border:1px solid rgba(212,169,106,0.15)" class="fade-in" id="crystalDetail">
+    <p style="color:var(--silver);font-style:italic">Tap a crystal to discover its message for you</p>
+  </div>
+</section>
+
+<!-- ===== ORACLE ===== -->
+<section id="oracle">
+  <h2 class="section-title fade-in">🔮 Crystal Cat Oracle 🐱</h2>
+  <p class="section-subtitle fade-in">Tap a card to reveal your cosmic message</p>
+  <div class="oracle-deck" id="oracleDeck"></div>
+  <button class="oracle-reset" onclick="resetOracle()">✦ Shuffle &amp; Reset ✦</button>
+</section>
+
+<!-- ===== AQUARIUS DEEP DIVE ===== -->
+<section id="aquariusdive">
+  <h2 class="section-title fade-in">♒ The Aquarius Spirit ♒</h2>
+  <p class="section-subtitle fade-in">Your cosmic nature, illuminated</p>
+
+  <div class="traits-container fade-in" id="traitsContainer"></div>
+
+  <div class="aqua-facts fade-in">
+    <div class="fact-card">
+      <h4>⚡ The Visionary</h4>
+      <p>Aquarius doesn't just see the world as it is — you see it as it could be. Every space, every project, every relationship gets the Brenda treatment: reimagined, elevated, made beautiful.</p>
+    </div>
+    <div class="fact-card">
+      <h4>🏛️ The Builder</h4>
+      <p>Fixed Air is a rare and powerful combination. You have the ideas AND the follow-through. Where others dream and abandon, you dream and deliver. That persistence is your superpower.</p>
+    </div>
+    <div class="fact-card">
+      <h4>💛 The Heart of the Family</h4>
+      <p>For all your independence, your deepest magic lives in the bonds you nurture. You create warmth wherever you go — your people don't just love you, they orbit you like planets around a sun.</p>
+    </div>
+    <div class="fact-card">
+      <h4>🎨 Beauty as Language</h4>
+      <p>Some people speak with words, some with actions. You speak with beauty. The way you arrange a room, choose a color, compose a space — it's a language only a few are fluent in.</p>
+    </div>
+    <div class="fact-card">
+      <h4>🐱 The Cat Whisperer</h4>
+      <p>Cats and Aquarians share the same energy: fiercely independent, quietly regal, and deeply affectionate on their own terms. You don't own cats — you coexist with fellow royalty.</p>
+    </div>
+    <div class="fact-card">
+      <h4>🌟 Many Fires Burning</h4>
+      <p>You've never been a one-project person. Your mind is a constellation — each star a different creative endeavor, all connected by the invisible threads of your singular vision.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPATIBILITY ===== -->
+<section id="compatibility">
+  <h2 class="section-title fade-in">💫 Aquarius Compatibility 💫</h2>
+  <p class="section-subtitle fade-in">How Brenda's Aquarian energy meets the zodiac</p>
+  <div class="compat-wheel fade-in" id="compatWheel"></div>
+  <div class="compat-result fade-in" id="compatResult">
+    <p style="color:var(--silver)">✦ Select a sign to see the cosmic connection ✦</p>
+  </div>
+</section>
+
+<!-- ===== PARIS ===== -->
+<section id="paris">
+  <h2 class="section-title fade-in">🗼 Paris &amp; the Aquarian Soul 🗼</h2>
+  <p class="section-subtitle fade-in">Why the City of Light calls to you</p>
+  <div class="paris-grid fade-in">
+    <div class="paris-card">
+      <div class="paris-icon">🏛️</div>
+      <h4>Architecture as Art</h4>
+      <p>Paris understands what you've always known: the spaces we inhabit shape who we become. Every arrondissement is a masterclass in the marriage of form, function, and soul.</p>
+    </div>
+    <div class="paris-card">
+      <div class="paris-icon">✨</div>
+      <h4>Beauty Without Apology</h4>
+      <p>The French philosophy of beauty aligns perfectly with your Aquarian values — beauty isn't vanity, it's necessity. It's the air in the room, the light on the wall, the intention behind every choice.</p>
+    </div>
+    <div class="paris-card">
+      <div class="paris-icon">🐈</div>
+      <h4>Les Chats de Paris</h4>
+      <p>Parisian cats are legendary — draped across velvet chairs in bookshops, perched on windowsills overlooking the Seine. In another life, you and your cats would rule a Left Bank salon.</p>
+    </div>
+    <div class="paris-card">
+      <div class="paris-icon">💎</div>
+      <h4>Crystal Markets</h4>
+      <p>From the Marché aux Puces to hidden gem shops in the Marais, Paris is a treasure hunt for the crystal-hearted. Amethyst geodes beside antique mirrors — your kind of magic.</p>
+    </div>
+    <div class="paris-card">
+      <div class="paris-icon">🌙</div>
+      <h4>Uranus in the City of Revolution</h4>
+      <p>Paris was built on revolution, reinvention, and the refusal to accept the ordinary. Your ruling planet Uranus feels right at home here. You share DNA with this city.</p>
+    </div>
+    <div class="paris-card">
+      <div class="paris-icon">🖋️</div>
+      <h4>A City That Creates</h4>
+      <p>Paris has always drawn the makers, the visionaries, the ones who have something to say. It doesn't just inspire creation — it demands it. The city recognizes its own.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MOON PHASE ===== -->
+<section id="moonphase">
+  <h2 class="section-title fade-in">🌙 Current Moon Phase 🌙</h2>
+  <p class="section-subtitle fade-in">The moon's message for you tonight</p>
+  <div class="moon-display fade-in">
+    <div class="moon-visual" id="moonVisual">
+      <div class="moon-shadow" id="moonShadow"></div>
+    </div>
+    <div class="moon-name" id="moonName">Loading...</div>
+    <div class="moon-desc" id="moonDesc"></div>
+    <div class="moon-cat-msg">
+      <div class="cat-icon">🐱🌙</div>
+      <div class="cat-wisdom" id="moonCatWisdom"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COSMIC CAT ===== -->
+<section id="catgen">
+  <h2 class="section-title fade-in">🐱 Cosmic Cat Fortune 🐱</h2>
+  <p class="section-subtitle fade-in">Your celestial feline has a message</p>
+  <div class="cat-display fade-in" id="catDisplay" onclick="generateCatFortune()">
+    <div class="cosmic-cat" id="cosmicCat">🐱</div>
+    <div class="cat-sign" id="catSign">Tap for wisdom</div>
+  </div>
+  <div class="cat-fortune" id="catFortune">The cosmic cat awaits your touch...</div>
+  <button class="gen-btn" onclick="generateCatFortune()">🐾 Summon Cat Wisdom 🐾</button>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-icons">💎 🐱 🗼 ✨ 🐱 💎</div>
+  <div class="dedication">Made with love for Brenda</div>
+  <p>An Aquarius visionary, crystal soul, and creator of beautiful worlds.</p>
+  <p style="margin-top:0.5rem;font-size:0.75rem;opacity:0.4">♒ The stars aligned on February 1, 1966 ♒</p>
+</footer>
+
+<script>
+// ===== STARFIELD =====
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function createStars(){
+  stars = [];
+  const count = Math.floor((canvas.width * canvas.height) / 3500);
+  for(let i = 0; i < count; i++){
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.3 + 0.2,
+      alpha: Math.random(),
+      speed: Math.random() * 0.004 + 0.001,
+      phase: Math.random() * Math.PI * 2,
+      color: ['#fff','#d2b4de','#7ec8e3','#d4a96a','#f0c4c8','#a8e6cf'][Math.floor(Math.random()*6)]
+    });
+  }
+}
+createStars();
+
+function drawStars(time){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    const twinkle = Math.sin(time * s.speed + s.phase) * 0.35 + 0.65;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = s.color;
+    ctx.globalAlpha = s.alpha * twinkle;
+    ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(drawStars);
+}
+requestAnimationFrame(drawStars);
+
+// ===== SCROLL ANIMATIONS =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ===== CRYSTALS =====
+const crystals = [
+  {emoji:"💜",name:"Amethyst",power:"Clarity & Intuition",
+   msg:"Your birthstone and closest ally. Amethyst calms the Aquarian mind when it's running a hundred projects at once. It whispers: trust the process, the vision is already whole.",
+   expanded:"Amethyst has been treasured since ancient Egypt as a stone of spiritual protection. For Brenda, it resonates with your 11th House energy — connecting higher purpose with earthly creation. Place it where you create; let it anchor your most ambitious visions."},
+  {emoji:"🤍",name:"Clear Quartz",power:"Amplification & Purpose",
+   msg:"The master healer. Clear Quartz amplifies every intention you set. When your creative energy is scattered across many beautiful directions, this crystal brings it into laser focus.",
+   expanded:"Known as the 'Master Healer,' Clear Quartz amplifies whatever energy or intention is programmed into it. For an Aquarius juggling many creative fires, it's the stone that says: everything you're building is connected. Trust the constellation of your work."},
+  {emoji:"🩵",name:"Aquamarine",power:"Courage & Expression",
+   msg:"The stone of courageous communication. When it's time to share what you've been building with the world, Aquamarine gives your voice the clarity and power it deserves.",
+   expanded:"Aquamarine was once carried by sailors as protection. For you, Brenda, it protects something equally precious — your creative voice. This stone vibrates at the frequency of truth-telling. When the time comes to share your vision with the world, hold it close."},
+  {emoji:"💗",name:"Rose Quartz",power:"Love & Family",
+   msg:"The heart stone. Rose Quartz honors what you already know — that love isn't just an emotion, it's the foundation of everything. Your family is your greatest masterpiece.",
+   expanded:"Rose Quartz opens the heart chakra and radiates unconditional love. It mirrors your deepest truth: that the most beautiful spaces you create aren't rooms — they're the feeling of home, of belonging, of family gathered close."},
+  {emoji:"✨",name:"Labradorite",power:"Transformation & Magic",
+   msg:"The stone of transformation and hidden fire. Labradorite looks ordinary until the light catches it — then it reveals iridescent galaxies. Very Brenda energy.",
+   expanded:"Labradorite is the stone of the creator and the entrepreneur. It fuels perseverance, strengthens intuition, and reveals the magic hidden in ordinary moments. It's aligned with Uranus — both contain surprises that only reveal themselves to those who look closely enough."},
+  {emoji:"🖤",name:"Black Tourmaline",power:"Protection & Grounding",
+   msg:"Your cosmic shield. When you're pouring your energy into the people and projects you love, Black Tourmaline makes sure you keep enough for yourself.",
+   expanded:"A powerful grounding stone that absorbs negative energy. For an Aquarius who gives so generously to others, Black Tourmaline is a gentle reminder: protect your energy. Your creative force is precious — guard it so you can keep building the extraordinary."},
+  {emoji:"💚",name:"Aventurine",power:"Prosperity & New Ventures",
+   msg:"The stone of opportunity. Aventurine doesn't just attract luck — it attracts the kind of success that comes from pouring your whole heart into your work.",
+   expanded:"Green Aventurine is known as the 'Stone of Opportunity' and is especially powerful for those launching new ventures or bringing long-held visions into the world. It aligns with your entrepreneurial Aquarian spirit — the one that knows your ideas deserve to be seen."},
+  {emoji:"💛",name:"Citrine",power:"Creativity & Manifestation",
+   msg:"Liquid sunshine in crystal form. Citrine fuels the creative fire and turns visions into reality. It's the stone for the final push — when a project is almost ready to shine.",
+   expanded:"Citrine carries the power of the sun. It's the stone of manifestation, helping to turn long-held dreams into tangible reality. For Brenda, Citrine says: what you've been pouring yourself into is ready. The world needs what you've created."}
+];
+
+function buildCrystals(){
+  const grid = document.getElementById('crystalGrid');
+  crystals.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'crystal-card';
+    card.innerHTML = `
+      <div class="crystal-emoji">${c.emoji}</div>
+      <div class="crystal-name">${c.name}</div>
+      <div class="crystal-power">${c.power}</div>
+      <div class="crystal-msg">${c.msg}</div>`;
+    card.addEventListener('click', () => selectCrystal(i, card));
+    grid.appendChild(card);
+  });
+}
+buildCrystals();
+
+function selectCrystal(i, card){
+  document.querySelectorAll('.crystal-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  const c = crystals[i];
+  document.getElementById('crystalDetail').innerHTML = `
+    <div style="font-size:2rem;margin-bottom:0.5rem">${c.emoji}</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:0.3rem">${c.name}</div>
+    <div style="font-size:0.7rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.8rem">${c.power}</div>
+    <p style="line-height:1.7;font-size:0.9rem;color:var(--silver)">${c.expanded}</p>`;
+}
+
+// ===== ORACLE =====
+const oracleMessages = [
+  {icon:"🔮",text:"The stars see what you've been building in the quiet hours. It's almost time. The universe doesn't rush masterpieces — and neither should you.",source:"Uranus Whisper"},
+  {icon:"🐱",text:"A cat knows when to pounce and when to wait. Right now, your patience is about to pay off in ways that will surprise even you, Brenda.",source:"Feline Constellation"},
+  {icon:"💎",text:"Your amethyst is humming. Creative clarity is at its peak — the scattered threads of inspiration are weaving themselves into something whole and beautiful.",source:"Crystal Resonance"},
+  {icon:"🗼",text:"A Parisian energy is swirling around you — elegance, boldness, the certainty that beauty is worth fighting for. Trust your aesthetic instincts. They're flawless.",source:"Eiffel Star"},
+  {icon:"🌙",text:"The moon sees your many projects and smiles. You aren't scattered — you're abundant. Every seed you've planted is growing, even the ones you can't see yet.",source:"Lunar Wisdom"},
+  {icon:"⚡",text:"Uranus sends a bolt of inspiration: something you've been working on is about to click into place. That final piece you've been searching for? It's already in your hands.",source:"Uranus Direct"},
+  {icon:"💜",text:"The 11th House is lit up tonight. Your work isn't just for you — it's for everyone who needs to see that spaces can heal, inspire, and transform.",source:"11th House Oracle"},
+  {icon:"🌟",text:"The Fire Horse in your chart is restless — in the best way. That entrepreneurial spark is asking to be fed. Listen to it. You've earned this next chapter.",source:"Eastern Star"},
+  {icon:"🐈",text:"Your cosmic cat brings a message: the people around you see what you're creating. They believe in it. Let their faith fuel you when yours wavers.",source:"Cat's Eye Nebula"},
+  {icon:"💛",text:"Citrine energy surrounds you. Everything you've been manifesting is moving from vision to reality. The timing isn't just right — it's perfect.",source:"Solar Plexus Activation"},
+  {icon:"🌸",text:"Like the violet — your birth flower — you are quietly powerful. Delicate isn't fragile. The most beautiful things in this world have roots of steel.",source:"Bloom Prophecy"},
+  {icon:"✨",text:"Your Fixed Air nature is your secret weapon. Others start and stop. You start and finish. What you're completing now will stand the test of time.",source:"Fixed Star Alignment"},
+];
+
+const cardFronts = ['💎','🌙','⭐','✨','🔮'];
+
+function buildOracle(){
+  const deck = document.getElementById('oracleDeck');
+  deck.innerHTML = '';
+  const shuffled = [...oracleMessages].sort(() => Math.random() - 0.5).slice(0, 5);
+  shuffled.forEach((msg, i) => {
+    const card = document.createElement('div');
+    card.className = 'oracle-card';
+    card.innerHTML = `
+      <div class="oracle-card-inner">
+        <div class="oracle-front">${cardFronts[i]}</div>
+        <div class="oracle-back">
+          <div class="msg-icon">${msg.icon}</div>
+          <div class="msg-text">${msg.text}</div>
+          <div class="msg-source">— ${msg.source}</div>
+        </div>
+      </div>`;
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    deck.appendChild(card);
+  });
+}
+buildOracle();
+
+function resetOracle(){
+  document.querySelectorAll('.oracle-card').forEach(c => c.classList.remove('flipped'));
+  setTimeout(buildOracle, 400);
+}
+
+// ===== TRAITS =====
+const traits = [
+  {name:"Vision",value:98,color:"linear-gradient(90deg,#7ec8e3,#9b59b6)"},
+  {name:"Creativity",value:96,color:"linear-gradient(90deg,#d4a96a,#f0c4c8)"},
+  {name:"Independence",value:95,color:"linear-gradient(90deg,#9b59b6,#7ec8e3)"},
+  {name:"Determination",value:97,color:"linear-gradient(90deg,#a8e6cf,#d4a96a)"},
+  {name:"Warmth",value:93,color:"linear-gradient(90deg,#f0c4c8,#d4a96a)"},
+  {name:"Aesthetic Sense",value:99,color:"linear-gradient(90deg,#d2b4de,#faf3e8)"},
+  {name:"Entrepreneurial Fire",value:94,color:"linear-gradient(90deg,#e8b4b8,#d4a96a)"},
+  {name:"Intuition",value:92,color:"linear-gradient(90deg,#8e7cc3,#a8e6cf)"},
+];
+
+function buildTraits(){
+  const container = document.getElementById('traitsContainer');
+  traits.forEach(t => {
+    const group = document.createElement('div');
+    group.className = 'trait-bar-group';
+    group.innerHTML = `
+      <div class="trait-label"><span>${t.name}</span><span>${t.value}%</span></div>
+      <div class="trait-bar"><div class="trait-bar-fill" data-width="${t.value}" style="background:${t.color}"></div></div>`;
+    container.appendChild(group);
+  });
+}
+buildTraits();
+
+const traitObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.trait-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    }
+  });
+}, {threshold: 0.3});
+traitObserver.observe(document.getElementById('traitsContainer'));
+
+// ===== COMPATIBILITY =====
+const zodiacSigns = [
+  {name:"Aries",symbol:"♈"},{name:"Taurus",symbol:"♉"},
+  {name:"Gemini",symbol:"♊"},{name:"Cancer",symbol:"♋"},
+  {name:"Leo",symbol:"♌"},{name:"Virgo",symbol:"♍"},
+  {name:"Libra",symbol:"♎"},{name:"Scorpio",symbol:"♏"},
+  {name:"Sagittarius",symbol:"♐"},{name:"Capricorn",symbol:"♑"},
+  {name:"Aquarius",symbol:"♒"},{name:"Pisces",symbol:"♓"},
+];
+
+const compatData = {
+  Aries:    {pct:78,vibe:"Fire and Air — a natural pairing! Aries brings bold energy and Aquarius brings brilliant ideas. Together you're an unstoppable force of innovation and action.",cats:"🐱🔥🐱"},
+  Taurus:   {pct:65,vibe:"Fixed meets Fixed — two immovable forces! Taurus shares your love of beauty and quality, though you express it differently. When you find common ground, it's gorgeous.",cats:"🐱🌿🐱"},
+  Gemini:   {pct:93,vibe:"AIR SIGN MAGIC! Two brilliant minds in perpetual conversation. Gemini matches your intellectual energy and loves your independence. A partnership of ideas and laughter.",cats:"🐱💨🐱💨🐱"},
+  Cancer:   {pct:72,vibe:"Cancer's deep family devotion speaks to your heart. They create emotional warmth; you create inspired spaces. Together, you build the most beautiful home imaginable.",cats:"🐱🌙🐱"},
+  Leo:      {pct:90,vibe:"Your opposite sign — and what a magnetic pull! Leo's warmth and your vision create something dazzling. Both Fixed signs, both loyal to the bone. A power duo.",cats:"🐱👑🐱"},
+  Virgo:    {pct:68,vibe:"Earth and Air find unexpected harmony in shared perfectionism. Virgo appreciates your attention to detail and aesthetic sense. You appreciate their dedication to craft.",cats:"🐱✨🐱"},
+  Libra:    {pct:95,vibe:"COSMIC SOULMATES! Fellow Air sign Libra shares your deep love of beauty, harmony, and creating something meaningful. Conversations that last until dawn. Effortless elegance together.",cats:"🐱⚖️🐱💎🐱"},
+  Scorpio:  {pct:75,vibe:"Both Fixed signs with intense convictions. Scorpio matches your depth and determination. When you align on a vision, nothing in the universe can stop you.",cats:"🐱🦂🐱"},
+  Sagittarius:{pct:88,vibe:"Fire feeds Air! Sagittarius shares your love of independence and big ideas. They bring the adventure; you bring the revolution. A Paris trip waiting to happen.",cats:"🐱🏹🐱"},
+  Capricorn:{pct:70,vibe:"Saturn's influence connects you both. Capricorn admires your vision; you admire their ambition. Together you turn dreams into empires — slowly, deliberately, beautifully.",cats:"🐱🏔️🐱"},
+  Aquarius: {pct:82,vibe:"Two Water Bearers understand each other on a cellular level. Double the independence, double the innovation. You don't complete each other — you amplify each other.",cats:"🐱♒🐱♒🐱"},
+  Pisces:   {pct:73,vibe:"Air and Water create mist — mysterious and beautiful. Pisces brings emotional depth to your intellectual brilliance. They dream it; you build it. A creative alliance.",cats:"🐱♓🐱"},
+};
+
+function buildCompatWheel(){
+  const wheel = document.getElementById('compatWheel');
+  zodiacSigns.forEach(sign => {
+    const btn = document.createElement('button');
+    btn.className = 'zodiac-btn';
+    btn.innerHTML = `<span class="z-symbol">${sign.symbol}</span><span class="z-name">${sign.name}</span>`;
+    btn.addEventListener('click', () => showCompat(sign.name, btn));
+    wheel.appendChild(btn);
+  });
+}
+buildCompatWheel();
+
+function showCompat(name, btn){
+  document.querySelectorAll('.zodiac-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const data = compatData[name];
+  const gradient = data.pct > 85 ? 'linear-gradient(90deg,#a8e6cf,#d4a96a)' :
+                   data.pct > 70 ? 'linear-gradient(90deg,#9b59b6,#7ec8e3)' :
+                   data.pct > 55 ? 'linear-gradient(90deg,#e8b4b8,#d4a96a)' :
+                   'linear-gradient(90deg,#d2b4de,#c0c5ce)';
+  const result = document.getElementById('compatResult');
+  result.innerHTML = `
+    <div style="font-size:2.5rem;margin-bottom:0.5rem">♒ × ${zodiacSigns.find(s=>s.name===name).symbol}</div>
+    <div class="compat-percent">${data.pct}%</div>
+    <div class="compat-meter"><div class="compat-fill" id="compatFill" style="background:${gradient}"></div></div>
+    <div class="compat-vibe">${data.vibe}</div>
+    <div class="compat-cats">${data.cats}</div>`;
+  setTimeout(() => {
+    document.getElementById('compatFill').style.width = data.pct + '%';
+  }, 50);
+}
+
+// ===== MOON PHASE =====
+function getMoonPhase(){
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  let r = year % 100;
+  r %= 19;
+  if(r > 9) r -= 19;
+  r = ((r * 11) % 30) + month + day;
+  if(month < 3) r += 2;
+  r -= ((year < 2000) ? 4 : 8.3);
+  r = Math.floor(r + 0.5) % 30;
+  if(r < 0) r += 30;
+  return r;
+}
+
+const moonPhases = [
+  {name:"New Moon",desc:"A blank canvas. The New Moon invites you to set intentions for what you want to create next. Your Aquarian vision is sharpest in the dark — trust what you see.",catMsg:"The cosmic cat sits in the darkness, perfectly still. New beginnings are sacred, Brenda. Plant your seeds with intention — they already know how to grow."},
+  {name:"Waxing Crescent",desc:"The first light of something new. What you've set in motion is beginning to take shape. Nurture it with patience — Aquarius knows that great things take time.",catMsg:"The cosmic cat bats at a sliver of moonlight. Small progress is still progress, Brenda. What you're building is becoming more real every day."},
+  {name:"First Quarter",desc:"A turning point. Challenges may test your resolve, but your Fixed sign energy was made for this. Push through — the vision is worth it.",catMsg:"The cosmic cat arches its back with determination. Obstacles aren't stop signs — they're design challenges. And you, Brenda, are the ultimate problem solver."},
+  {name:"Waxing Gibbous",desc:"Almost there. The details matter now. Your natural eye for beauty and precision is exactly what this phase requires. Refine, polish, perfect.",catMsg:"The cosmic cat inspects every corner of the room. The details aren't minor, they're everything. Trust your impeccable taste — it hasn't failed you yet."},
+  {name:"Full Moon",desc:"ILLUMINATION! Everything is revealed in full light. Your work, your love, your creative energy — all shining at maximum power. Let the world see what you've made.",catMsg:"The cosmic cat stands in the spotlight, magnificent. This is your moment, Brenda. Everything you've been pouring your heart into deserves to be seen. Don't dim your light."},
+  {name:"Waning Gibbous",desc:"Time to share and give back. Your wisdom — creative, spiritual, familial — is needed by those around you. Generosity amplifies everything.",catMsg:"The cosmic cat brings a gift and lays it at your feet. Share what you know, Brenda. Your experience is someone else's lifeline."},
+  {name:"Last Quarter",desc:"Release what's complete. Let finished chapters close so new ones can open. Your Fixed nature may resist, but some endings are just beginnings in disguise.",catMsg:"The cosmic cat pushes something off the shelf with zero regret. Let it go, Brenda. Your hands need to be free for what's coming next."},
+  {name:"Waning Crescent",desc:"Rest and restore. Even the most visionary Aquarius needs to recharge. This is the pause before the next creative surge. Honor it.",catMsg:"The cosmic cat curls up in a patch of warmth. Rest, Brenda. Your creative fire doesn't go out when you sleep — it gathers strength."}
+];
+
+function displayMoon(){
+  const phase = getMoonPhase();
+  const phaseIndex = Math.floor(phase / 3.75);
+  const data = moonPhases[Math.min(phaseIndex, 7)];
+  document.getElementById('moonName').textContent = data.name;
+  document.getElementById('moonDesc').textContent = data.desc;
+  document.getElementById('moonCatWisdom').textContent = data.catMsg;
+  const shadow = document.getElementById('moonShadow');
+  const pct = phase / 29.5;
+  if(pct < 0.5){
+    shadow.style.right = '0';
+    shadow.style.left = 'auto';
+    shadow.style.width = (100 - pct * 200) + '%';
+  } else {
+    shadow.style.left = '0';
+    shadow.style.right = 'auto';
+    shadow.style.width = ((pct - 0.5) * 200) + '%';
+  }
+}
+displayMoon();
+
+// ===== COSMIC CAT FORTUNE =====
+const catFaces = ['😸','😻','😺','😽','😼','🙀','😹','🐱','🐈','🐈‍⬛'];
+const catSigns = [
+  'Crystal Guardian of Uranus','Velvet Sphinx of the 11th House',
+  'Parisian Tabby of the Crescent Moon','Amethyst Persian of Saturn',
+  'Salon Cat of the Left Bank','Midnight Siamese of the New Moon',
+  'Gilded Mainecoon of Venus','Moonstone Bengal of Neptune',
+  'Celestial Tuxedo of the Fixed Stars','Rose Quartz Ragdoll of the Heart'
+];
+const catFortunes = [
+  "The stars arranged themselves into a floorplan tonight. Whatever space you're envisioning — physical, creative, spiritual — trust the blueprint. It's going to be extraordinary.",
+  "A purr from the cosmos: someone who matters is about to tell you something you've needed to hear. When they do, believe them. They mean every word.",
+  "Your amethyst is glowing brighter than usual. Clarity is here, Brenda. That decision you've been weighing? Your intuition already knows. Listen.",
+  "The cosmic cat sees you juggling many beautiful things at once. You're not dropping any of them. You're orchestrating. There's a difference.",
+  "Uranus sends a jolt of inspiration: the thing you've been building in private is ready for the light. Not almost ready. Ready. Now.",
+  "The Parisian stars are twinkling for you tonight. Beauty, elegance, and a touch of revolutionary spirit — it's not just what you love, it's who you are.",
+  "Your family sends you strength across every cosmic frequency tonight. That invisible web of love? It's the foundation everything else is built on.",
+  "The celestial feline sees a finished project in your near future. The feeling of completion will be sweeter than you imagine. Savor every moment of it.",
+  "Crystal message incoming: your creative energy isn't just talent — it's purpose. What you make transforms spaces, and spaces transform lives.",
+  "The cosmic cat knocks over a vase and watches it fall. Translation: not everything precious is fragile. What you've built is stronger than you think.",
+  "A rare Fixed Air moment: your ideas are crystallizing into something permanent and beautiful. This is what you were made for, Brenda.",
+  "The Fire Horse in your chart stamps its hooves. Adventure is calling — not away from what you love, but deeper into it.",
+  "Tonight the moon illuminates what you've already known: you don't just decorate lives, you design them. That's a gift, not a job.",
+  "The cosmic cat stretches luxuriously across a velvet cushion. A reminder: you deserve the beauty you create for others. Surround yourself with it.",
+  "Labradorite flashes a hidden rainbow. The ordinary moments of today contain something extraordinary. Look closer, Brenda — the magic is already there.",
+];
+
+function generateCatFortune(){
+  const catEl = document.getElementById('cosmicCat');
+  const signEl = document.getElementById('catSign');
+  const fortuneEl = document.getElementById('catFortune');
+  const display = document.getElementById('catDisplay');
+
+  catEl.style.transform = 'scale(0.5) rotate(360deg)';
+  display.style.borderColor = 'var(--gold)';
+  display.style.boxShadow = '0 0 50px rgba(212,169,106,0.3)';
+
+  setTimeout(() => {
+    catEl.textContent = catFaces[Math.floor(Math.random() * catFaces.length)];
+    signEl.textContent = catSigns[Math.floor(Math.random() * catSigns.length)];
+    fortuneEl.textContent = catFortunes[Math.floor(Math.random() * catFortunes.length)];
+    fortuneEl.classList.add('show');
+    catEl.style.transform = 'scale(1) rotate(0deg)';
+    display.style.borderColor = 'var(--paris-rose)';
+  }, 500);
+
+  setTimeout(() => {
+    display.style.boxShadow = '';
+  }, 2000);
+}
+
+// ===== REOBSERVE =====
+setTimeout(() => {
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}, 100);
+</script>
+</body>
+</html>
