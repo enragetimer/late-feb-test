@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marelle's Cosmic Cat Oracle</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --pisces-deep:#0a0a2e;
+  --pisces-mid:#1a1a4e;
+  --pisces-glow:#7b68ee;
+  --pisces-light:#b8a9ff;
+  --aqua:#00e5ff;
+  --seafoam:#64ffda;
+  --coral:#ff6b9d;
+  --gold:#ffd700;
+  --cat-orange:#ff9a56;
+  --mystic-pink:#ff61d2;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Quicksand',sans-serif;
+  background:var(--pisces-deep);
+  color:#e0d6ff;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* ===== STARFIELD CANVAS ===== */
+#starfield{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:0;pointer-events:none;
+}
+
+/* ===== NAVIGATION ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,10,46,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(123,104,238,0.2);
+  padding:0.8rem 2rem;
+  display:flex;justify-content:center;gap:2rem;
+  flex-wrap:wrap;
+}
+nav a{
+  color:var(--pisces-light);text-decoration:none;
+  font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;
+  font-weight:600;transition:all 0.3s;
+  position:relative;
+}
+nav a::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;
+  background:linear-gradient(90deg,var(--aqua),var(--mystic-pink));
+  transition:width 0.3s;
+}
+nav a:hover{color:#fff}
+nav a:hover::after{width:100%}
+
+/* ===== SECTIONS ===== */
+section{
+  position:relative;z-index:1;
+  min-height:100vh;
+  padding:6rem 2rem 4rem;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+
+/* ===== HERO ===== */
+#hero{
+  text-align:center;
+  background:radial-gradient(ellipse at 50% 30%,rgba(123,104,238,0.15),transparent 60%);
+}
+.hero-cat{
+  font-size:6rem;
+  animation:float 3s ease-in-out infinite;
+  filter:drop-shadow(0 0 30px rgba(123,104,238,0.5));
+}
+@keyframes float{
+  0%,100%{transform:translateY(0) rotate(-2deg)}
+  50%{transform:translateY(-20px) rotate(2deg)}
+}
+.hero-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(2.5rem,6vw,5rem);
+  background:linear-gradient(135deg,var(--pisces-light),var(--aqua),var(--mystic-pink),var(--gold));
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shimmer 4s ease-in-out infinite;
+  margin:1rem 0;
+}
+@keyframes shimmer{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+.hero-subtitle{
+  font-size:clamp(1rem,2.5vw,1.4rem);
+  color:var(--pisces-light);
+  letter-spacing:4px;text-transform:uppercase;
+  margin-bottom:0.5rem;
+}
+.hero-pisces{
+  font-size:1.2rem;color:var(--seafoam);
+  margin-top:1rem;letter-spacing:2px;
+}
+.hero-pisces .symbol{font-size:2rem;vertical-align:middle}
+
+.scroll-hint{
+  margin-top:3rem;
+  animation:bounce 2s infinite;
+  color:var(--pisces-light);
+  font-size:1.5rem;
+  opacity:0.6;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(10px)}
+}
+
+/* ===== BIRTH CHART ===== */
+#birthchart{
+  background:radial-gradient(ellipse at 30% 70%,rgba(0,229,255,0.08),transparent 50%);
+}
+.chart-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.5rem;max-width:1100px;width:100%;
+  margin-top:2rem;
+}
+.chart-card{
+  background:linear-gradient(135deg,rgba(26,26,78,0.8),rgba(10,10,46,0.9));
+  border:1px solid rgba(123,104,238,0.25);
+  border-radius:20px;padding:2rem;
+  text-align:center;
+  transition:all 0.4s;
+  position:relative;overflow:hidden;
+}
+.chart-card::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:conic-gradient(from 0deg,transparent,rgba(123,104,238,0.1),transparent);
+  animation:cardSpin 8s linear infinite;
+  opacity:0;transition:opacity 0.4s;
+}
+.chart-card:hover::before{opacity:1}
+@keyframes cardSpin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+.chart-card:hover{
+  transform:translateY(-5px);
+  border-color:var(--pisces-glow);
+  box-shadow:0 10px 40px rgba(123,104,238,0.2);
+}
+.chart-icon{font-size:2.5rem;margin-bottom:0.8rem}
+.chart-label{
+  font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--aqua);margin-bottom:0.3rem;
+}
+.chart-value{
+  font-family:'Cinzel Decorative',serif;
+  font-size:1.3rem;color:#fff;
+}
+.chart-desc{
+  font-size:0.85rem;color:var(--pisces-light);
+  margin-top:0.5rem;line-height:1.5;
+}
+
+/* ===== SECTION TITLES ===== */
+.section-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  text-align:center;
+  margin-bottom:0.5rem;
+}
+.section-subtitle{
+  text-align:center;color:var(--pisces-light);
+  font-size:0.95rem;letter-spacing:2px;
+  margin-bottom:2rem;
+}
+
+/* ===== ORACLE (Daily Message) ===== */
+#oracle{
+  background:radial-gradient(ellipse at 70% 30%,rgba(255,97,210,0.08),transparent 50%);
+}
+.oracle-deck{
+  display:flex;gap:1.5rem;flex-wrap:wrap;
+  justify-content:center;max-width:900px;
+  margin:1rem 0 2rem;
+}
+.oracle-card{
+  width:160px;height:240px;
+  perspective:800px;cursor:pointer;
+}
+.oracle-card-inner{
+  width:100%;height:100%;position:relative;
+  transition:transform 0.8s cubic-bezier(0.175,0.885,0.32,1.275);
+  transform-style:preserve-3d;
+}
+.oracle-card.flipped .oracle-card-inner{transform:rotateY(180deg)}
+.oracle-front,.oracle-back{
+  position:absolute;width:100%;height:100%;
+  backface-visibility:hidden;border-radius:16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:1rem;
+}
+.oracle-front{
+  background:linear-gradient(135deg,var(--pisces-mid),#2a1a5e);
+  border:2px solid var(--pisces-glow);
+  font-size:3rem;
+}
+.oracle-front::after{
+  content:'Reveal';position:absolute;bottom:1rem;
+  font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--pisces-light);
+}
+.oracle-back{
+  background:linear-gradient(135deg,#1a0a3e,var(--pisces-mid));
+  border:2px solid var(--mystic-pink);
+  transform:rotateY(180deg);
+  text-align:center;
+}
+.oracle-back .msg-cat{font-size:2rem;margin-bottom:0.5rem}
+.oracle-back .msg-text{
+  font-size:0.8rem;line-height:1.6;color:#fff;
+}
+.oracle-back .msg-source{
+  font-size:0.65rem;color:var(--mystic-pink);
+  margin-top:0.8rem;letter-spacing:1px;
+}
+.oracle-reset{
+  background:linear-gradient(135deg,var(--pisces-glow),var(--mystic-pink));
+  border:none;color:#fff;padding:0.8rem 2.5rem;
+  border-radius:50px;cursor:pointer;font-family:'Quicksand',sans-serif;
+  font-size:0.9rem;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;transition:all 0.3s;
+  box-shadow:0 4px 20px rgba(123,104,238,0.3);
+}
+.oracle-reset:hover{
+  transform:scale(1.05);
+  box-shadow:0 6px 30px rgba(123,104,238,0.5);
+}
+
+/* ===== COMPATIBILITY ===== */
+#compatibility{
+  background:radial-gradient(ellipse at 50% 50%,rgba(255,215,0,0.06),transparent 50%);
+}
+.compat-wheel{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1rem;max-width:600px;width:100%;
+  margin:1rem 0 2rem;
+}
+@media(max-width:500px){.compat-wheel{grid-template-columns:repeat(3,1fr)}}
+.zodiac-btn{
+  background:rgba(26,26,78,0.6);
+  border:2px solid rgba(123,104,238,0.2);
+  border-radius:16px;padding:1rem 0.5rem;
+  color:#e0d6ff;cursor:pointer;
+  text-align:center;transition:all 0.3s;
+  font-family:'Quicksand',sans-serif;
+}
+.zodiac-btn:hover,.zodiac-btn.active{
+  border-color:var(--gold);
+  background:rgba(255,215,0,0.1);
+  transform:scale(1.05);
+  box-shadow:0 0 20px rgba(255,215,0,0.15);
+}
+.zodiac-btn .z-symbol{font-size:1.8rem;display:block}
+.zodiac-btn .z-name{font-size:0.7rem;letter-spacing:1px;margin-top:0.3rem}
+.compat-result{
+  max-width:600px;width:100%;
+  background:linear-gradient(135deg,rgba(26,26,78,0.8),rgba(10,10,46,0.9));
+  border:1px solid rgba(123,104,238,0.3);
+  border-radius:20px;padding:2rem;
+  text-align:center;
+  min-height:200px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:all 0.5s;
+}
+.compat-meter{
+  width:100%;max-width:300px;height:12px;
+  background:rgba(255,255,255,0.1);
+  border-radius:10px;overflow:hidden;
+  margin:1rem 0;
+}
+.compat-fill{
+  height:100%;border-radius:10px;
+  transition:width 1s cubic-bezier(0.22,1,0.36,1);
+  width:0;
+}
+.compat-percent{
+  font-family:'Cinzel Decorative',serif;
+  font-size:2.5rem;color:var(--gold);
+}
+.compat-vibe{
+  font-size:1rem;color:var(--pisces-light);
+  margin-top:0.5rem;line-height:1.6;
+}
+.compat-cats{font-size:1.5rem;margin-top:0.5rem}
+
+/* ===== MOON PHASE ===== */
+#moonphase{
+  background:radial-gradient(ellipse at 50% 40%,rgba(184,169,255,0.08),transparent 50%);
+}
+.moon-display{
+  display:flex;flex-direction:column;align-items:center;
+  gap:1rem;margin:1rem 0;
+}
+.moon-visual{
+  width:180px;height:180px;
+  border-radius:50%;
+  position:relative;
+  background:radial-gradient(circle at 40% 35%,#ffeedd,#ddd5c0,#bbb09a);
+  box-shadow:0 0 60px rgba(255,238,200,0.3),inset 0 0 30px rgba(0,0,0,0.1);
+  overflow:hidden;
+}
+.moon-shadow{
+  position:absolute;top:0;height:100%;
+  background:var(--pisces-deep);
+  transition:all 1s;
+  border-radius:50%;
+}
+.moon-name{
+  font-family:'Cinzel Decorative',serif;
+  font-size:1.8rem;color:#fff;
+}
+.moon-desc{
+  color:var(--pisces-light);
+  max-width:500px;text-align:center;
+  line-height:1.7;
+}
+.moon-cat-msg{
+  background:rgba(26,26,78,0.6);
+  border:1px solid rgba(123,104,238,0.2);
+  border-radius:16px;padding:1.5rem 2rem;
+  max-width:500px;text-align:center;
+  margin-top:1rem;
+}
+.moon-cat-msg .cat-icon{font-size:2rem}
+.moon-cat-msg .cat-wisdom{
+  font-style:italic;color:var(--seafoam);
+  margin-top:0.5rem;line-height:1.5;
+}
+
+/* ===== PISCES DEEP DIVE ===== */
+#piscesdive{
+  background:radial-gradient(ellipse at 60% 60%,rgba(100,255,218,0.06),transparent 50%);
+}
+.traits-container{
+  max-width:900px;width:100%;
+  margin-top:1.5rem;
+}
+.trait-bar-group{margin-bottom:1.2rem}
+.trait-label{
+  display:flex;justify-content:space-between;
+  margin-bottom:0.4rem;font-size:0.9rem;
+}
+.trait-label span:first-child{color:var(--aqua);font-weight:600}
+.trait-label span:last-child{color:var(--pisces-light)}
+.trait-bar{
+  width:100%;height:10px;
+  background:rgba(255,255,255,0.08);
+  border-radius:10px;overflow:hidden;
+}
+.trait-bar-fill{
+  height:100%;border-radius:10px;
+  width:0;transition:width 1.5s cubic-bezier(0.22,1,0.36,1);
+}
+
+.pisces-facts{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1.5rem;max-width:900px;width:100%;
+  margin-top:2rem;
+}
+.fact-card{
+  background:rgba(26,26,78,0.5);
+  border:1px solid rgba(123,104,238,0.2);
+  border-radius:16px;padding:1.5rem;
+  transition:all 0.3s;
+}
+.fact-card:hover{
+  border-color:var(--seafoam);
+  transform:translateY(-3px);
+}
+.fact-card h4{color:var(--seafoam);margin-bottom:0.5rem;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase}
+.fact-card p{line-height:1.6;font-size:0.9rem}
+
+/* ===== COSMIC CAT GENERATOR ===== */
+#catgen{
+  background:radial-gradient(ellipse at 40% 50%,rgba(255,154,86,0.08),transparent 50%);
+}
+.cat-display{
+  width:260px;height:260px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(26,26,78,0.8),rgba(10,10,46,0.95));
+  border:2px solid var(--pisces-glow);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:1rem 0;
+  cursor:pointer;
+  transition:all 0.5s;
+  position:relative;
+}
+.cat-display:hover{
+  box-shadow:0 0 50px rgba(123,104,238,0.3);
+  border-color:var(--cat-orange);
+}
+.cat-display .cosmic-cat{font-size:5rem;transition:transform 0.5s}
+.cat-display:hover .cosmic-cat{transform:scale(1.1) rotate(5deg)}
+.cat-display .cat-sign{
+  font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--cat-orange);margin-top:0.5rem;
+}
+.cat-fortune{
+  max-width:500px;text-align:center;
+  padding:1.5rem;min-height:80px;
+  font-size:1.05rem;line-height:1.7;
+  color:var(--pisces-light);
+  transition:all 0.5s;
+}
+.cat-fortune.show{color:#fff}
+.gen-btn{
+  background:linear-gradient(135deg,var(--cat-orange),var(--coral));
+  border:none;color:#fff;padding:0.8rem 2.5rem;
+  border-radius:50px;cursor:pointer;font-family:'Quicksand',sans-serif;
+  font-size:0.9rem;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;transition:all 0.3s;
+}
+.gen-btn:hover{transform:scale(1.05);box-shadow:0 4px 25px rgba(255,154,86,0.4)}
+
+/* ===== FOOTER ===== */
+footer{
+  position:relative;z-index:1;
+  text-align:center;padding:3rem 2rem;
+  border-top:1px solid rgba(123,104,238,0.15);
+  color:var(--pisces-light);
+  font-size:0.85rem;
+}
+footer .footer-cats{font-size:1.5rem;margin-bottom:0.5rem}
+footer .dedication{
+  font-family:'Cinzel Decorative',serif;
+  font-size:1.1rem;color:var(--mystic-pink);
+  margin-bottom:0.5rem;
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-in{opacity:0;transform:translateY(30px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+  nav{gap:1rem;padding:0.6rem 1rem}
+  nav a{font-size:0.7rem;letter-spacing:1px}
+  section{padding:5rem 1rem 3rem}
+  .oracle-card{width:130px;height:200px}
+  .compat-wheel{gap:0.6rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav>
+  <a href="#hero">Home</a>
+  <a href="#birthchart">Birth Chart</a>
+  <a href="#oracle">Oracle</a>
+  <a href="#piscesdive">Pisces</a>
+  <a href="#compatibility">Compatibility</a>
+  <a href="#moonphase">Moon</a>
+  <a href="#catgen">Cosmic Cat</a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-cat">🐱✨</div>
+  <div class="hero-subtitle">A Cosmic Tribute to</div>
+  <h1 class="hero-title">Marelle</h1>
+  <div class="hero-pisces">
+    <span class="symbol">♓</span> Pisces Sun &bull; March 8, 1994 &bull; Dreamer &amp; Force of Nature
+  </div>
+  <p style="margin-top:1rem;max-width:550px;text-align:center;line-height:1.7;color:var(--pisces-light);">
+    Full of energy, beautifully mercurial, and guided by the stars.
+    This is your celestial corner of the universe. 🌙
+  </p>
+  <div class="scroll-hint">↓</div>
+</section>
+
+<!-- ===== BIRTH CHART ===== -->
+<section id="birthchart">
+  <h2 class="section-title fade-in">✦ Marelle's Birth Chart ✦</h2>
+  <p class="section-subtitle fade-in">March 8, 1994 &mdash; Celestial Blueprint</p>
+  <div class="chart-grid">
+    <div class="chart-card fade-in">
+      <div class="chart-icon">☀️</div>
+      <div class="chart-label">Sun Sign</div>
+      <div class="chart-value">♓ Pisces</div>
+      <div class="chart-desc">Intuitive, compassionate, endlessly imaginative. You feel the world deeply and dream in vivid color.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">🌊</div>
+      <div class="chart-label">Element</div>
+      <div class="chart-value">Water</div>
+      <div class="chart-desc">Emotional depth, flowing energy, and powerful intuition. You adapt like the tides — always moving, always feeling.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">🔮</div>
+      <div class="chart-label">Ruling Planet</div>
+      <div class="chart-value">Neptune</div>
+      <div class="chart-desc">Planet of dreams, illusion, and transcendence. Neptune gifts you vision beyond the ordinary — creative, spiritual, boundless.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">✨</div>
+      <div class="chart-label">Quality / Modality</div>
+      <div class="chart-value">Mutable</div>
+      <div class="chart-desc">Adaptable, flexible, mercurial. You flow between moods and modes with ease — a shapeshifter of the zodiac.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">🐕</div>
+      <div class="chart-label">Chinese Zodiac</div>
+      <div class="chart-value">Wood Dog</div>
+      <div class="chart-desc">Loyal, honest, and warm-hearted. The Wood element adds growth, generosity, and a deep connection to community.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">💎</div>
+      <div class="chart-label">Birthstone</div>
+      <div class="chart-value">Aquamarine</div>
+      <div class="chart-desc">Stone of courage and serenity. Calms the spirit, sharpens intuition, and connects to the ocean's ancient wisdom.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">🌸</div>
+      <div class="chart-label">Birth Flower</div>
+      <div class="chart-value">Daffodil</div>
+      <div class="chart-desc">Symbol of new beginnings and rebirth. Bright, resilient, and impossible to ignore — just like you, Marelle.</div>
+    </div>
+    <div class="chart-card fade-in">
+      <div class="chart-icon">🏠</div>
+      <div class="chart-label">Zodiac House</div>
+      <div class="chart-value">12th House</div>
+      <div class="chart-desc">The house of the subconscious, dreams, and hidden strengths. Your power lives in the unseen, the mystical, the spiritual.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ORACLE ===== -->
+<section id="oracle">
+  <h2 class="section-title fade-in">🔮 Cosmic Cat Oracle 🐱</h2>
+  <p class="section-subtitle fade-in">Tap a card to reveal your celestial message</p>
+  <div class="oracle-deck" id="oracleDeck"></div>
+  <button class="oracle-reset" onclick="resetOracle()">✦ Shuffle & Reset ✦</button>
+</section>
+
+<!-- ===== PISCES DEEP DIVE ===== -->
+<section id="piscesdive">
+  <h2 class="section-title fade-in">♓ The Pisces Soul ♓</h2>
+  <p class="section-subtitle fade-in">A deep dive into your cosmic nature, Marelle</p>
+
+  <div class="traits-container fade-in" id="traitsContainer">
+    <!-- Populated by JS -->
+  </div>
+
+  <div class="pisces-facts fade-in">
+    <div class="fact-card">
+      <h4>🌊 Emotional Superpower</h4>
+      <p>Pisces feels everything — the joy, the sorrow, the subtle shifts in a room. This isn't weakness; it's your greatest strength. You understand people at a level most never reach.</p>
+    </div>
+    <div class="fact-card">
+      <h4>🎨 Creative Channeler</h4>
+      <p>Neptune blesses Pisces with unmatched creative vision. Music, art, writing, dance — you don't just create, you channel something from beyond the veil.</p>
+    </div>
+    <div class="fact-card">
+      <h4>🌀 The Mercurial Gift</h4>
+      <p>Your ever-shifting moods aren't chaos — they're range. You contain multitudes, Marelle. That mercurial energy means you're never boring and always evolving.</p>
+    </div>
+    <div class="fact-card">
+      <h4>⚡ Boundless Energy</h4>
+      <p>When you're on, you're ON. Pisces energy at its peak is a tidal wave of enthusiasm, creativity, and infectious joy. People can't help but be swept up in your current.</p>
+    </div>
+    <div class="fact-card">
+      <h4>🐱 Cat Soul Connection</h4>
+      <p>Cats and Pisces share an ancient bond: both are mysterious, intuitive, independent, and secretly the most affectionate creatures in any room. You speak the same cosmic language.</p>
+    </div>
+    <div class="fact-card">
+      <h4>🔮 Intuition as Compass</h4>
+      <p>Your gut feelings aren't random — they're Neptune whispering through you. Trust that inner knowing. It's guided you this far and it won't stop now.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPATIBILITY ===== -->
+<section id="compatibility">
+  <h2 class="section-title fade-in">💫 Pisces Compatibility 💫</h2>
+  <p class="section-subtitle fade-in">How does Marelle's Pisces vibe with the zodiac?</p>
+  <div class="compat-wheel fade-in" id="compatWheel"></div>
+  <div class="compat-result fade-in" id="compatResult">
+    <p style="color:var(--pisces-light)">✦ Select a sign to see your cosmic connection ✦</p>
+  </div>
+</section>
+
+<!-- ===== MOON PHASE ===== -->
+<section id="moonphase">
+  <h2 class="section-title fade-in">🌙 Current Moon Phase 🌙</h2>
+  <p class="section-subtitle fade-in">The moon's cosmic influence right now</p>
+  <div class="moon-display fade-in">
+    <div class="moon-visual" id="moonVisual">
+      <div class="moon-shadow" id="moonShadow"></div>
+    </div>
+    <div class="moon-name" id="moonName">Loading...</div>
+    <div class="moon-desc" id="moonDesc"></div>
+    <div class="moon-cat-msg">
+      <div class="cat-icon">🐱🌙</div>
+      <div class="cat-wisdom" id="moonCatWisdom"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COSMIC CAT GENERATOR ===== -->
+<section id="catgen">
+  <h2 class="section-title fade-in">🐱 Cosmic Cat Fortune 🐱</h2>
+  <p class="section-subtitle fade-in">Your celestial feline has a message for you</p>
+  <div class="cat-display fade-in" id="catDisplay" onclick="generateCatFortune()">
+    <div class="cosmic-cat" id="cosmicCat">🐱</div>
+    <div class="cat-sign" id="catSign">Tap for wisdom</div>
+  </div>
+  <div class="cat-fortune" id="catFortune">The cosmic cat awaits your touch...</div>
+  <button class="gen-btn" onclick="generateCatFortune()">🐾 Summon Cat Wisdom 🐾</button>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-cats">🐱✨🐱✨🐱</div>
+  <div class="dedication">Made with love for Marelle</div>
+  <p>A Pisces queen, cat whisperer, and cosmic force of nature.</p>
+  <p style="margin-top:0.5rem;font-size:0.75rem;opacity:0.5">♓ The stars aligned on March 8, 1994 ♓</p>
+</footer>
+
+<script>
+// ===== STARFIELD =====
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function createStars(){
+  stars = [];
+  const count = Math.floor((canvas.width * canvas.height) / 3000);
+  for(let i = 0; i < count; i++){
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.3,
+      alpha: Math.random(),
+      speed: Math.random() * 0.005 + 0.002,
+      phase: Math.random() * Math.PI * 2,
+      color: ['#fff','#b8a9ff','#00e5ff','#ff61d2','#ffd700'][Math.floor(Math.random()*5)]
+    });
+  }
+}
+createStars();
+
+function drawStars(time){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    const twinkle = Math.sin(time * s.speed + s.phase) * 0.4 + 0.6;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = s.color;
+    ctx.globalAlpha = s.alpha * twinkle;
+    ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(drawStars);
+}
+requestAnimationFrame(drawStars);
+
+// ===== SCROLL ANIMATIONS =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold: 0.1});
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ===== ORACLE CARDS =====
+const oracleMessages = [
+  {cat:"😸",text:"The stars say your creative energy is peaking. Start that project you've been dreaming about — the universe is conspiring in your favor.",source:"Neptune's Whisper"},
+  {cat:"😻",text:"A wave of love is heading your way. Open your heart wider than you think possible. Pisces magic works best when you're vulnerable.",source:"Venus in Pisces"},
+  {cat:"🙀",text:"Trust the chaos, Marelle. Your mercurial nature isn't a bug — it's a feature. The shifts you feel are the universe recalibrating your path.",source:"Mutable Water Wisdom"},
+  {cat:"😺",text:"Your intuition is razor-sharp right now. That gut feeling? Follow it. Neptune doesn't send signals without reason.",source:"12th House Oracle"},
+  {cat:"😽",text:"Rest isn't laziness — it's recharging your cosmic batteries. Even the ocean has calm days between the storms.",source:"Moon in Pisces"},
+  {cat:"🐱",text:"Someone from a water sign is thinking of you. The emotional connection you share transcends the ordinary — honor it.",source:"Elemental Resonance"},
+  {cat:"😼",text:"Your energy is contagious today. Use it! Lead with that Pisces passion and watch doors open that you didn't even know existed.",source:"Jupiter's Blessing"},
+  {cat:"😸",text:"The daffodils are blooming in your chart. New beginnings are here, Marelle. Shed what no longer serves you and step into the light.",source:"Spring Equinox Energy"},
+  {cat:"🐈",text:"A cosmic cat crossed your path for a reason. Pay attention to the small synchronicities — they're breadcrumbs from the universe.",source:"Feline Constellation"},
+  {cat:"😻",text:"Your aquamarine birthstone is humming. Courage and serenity aren't opposites — you embody both. Channel that duality today.",source:"Crystal Frequency"},
+  {cat:"😺",text:"The Wood Dog in your Chinese chart is loyal and true. The friendships you nurture now will become pillars of your future.",source:"Eastern Star Alignment"},
+  {cat:"🐱",text:"Dream bigger, Marelle. Pisces doesn't do small. Your imagination is a portal — what you envision, you can manifest.",source:"Neptune Direct"}
+];
+
+const cardBacks = ['🌟','🌙','⭐','✨','🔮','💫'];
+
+function buildOracle(){
+  const deck = document.getElementById('oracleDeck');
+  deck.innerHTML = '';
+  const shuffled = [...oracleMessages].sort(() => Math.random() - 0.5).slice(0, 5);
+  shuffled.forEach((msg, i) => {
+    const card = document.createElement('div');
+    card.className = 'oracle-card';
+    card.innerHTML = `
+      <div class="oracle-card-inner">
+        <div class="oracle-front">${cardBacks[i % cardBacks.length]}</div>
+        <div class="oracle-back">
+          <div class="msg-cat">${msg.cat}</div>
+          <div class="msg-text">${msg.text}</div>
+          <div class="msg-source">— ${msg.source}</div>
+        </div>
+      </div>`;
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    deck.appendChild(card);
+  });
+}
+buildOracle();
+
+function resetOracle(){
+  const cards = document.querySelectorAll('.oracle-card');
+  cards.forEach(c => c.classList.remove('flipped'));
+  setTimeout(buildOracle, 400);
+}
+
+// ===== PISCES TRAITS =====
+const traits = [
+  {name:"Intuition", value:97, color:"linear-gradient(90deg,#7b68ee,#00e5ff)"},
+  {name:"Creativity", value:95, color:"linear-gradient(90deg,#ff61d2,#ffd700)"},
+  {name:"Empathy", value:98, color:"linear-gradient(90deg,#64ffda,#7b68ee)"},
+  {name:"Energy", value:90, color:"linear-gradient(90deg,#ff6b9d,#ff9a56)"},
+  {name:"Adaptability", value:93, color:"linear-gradient(90deg,#00e5ff,#ff61d2)"},
+  {name:"Dreaminess", value:96, color:"linear-gradient(90deg,#b8a9ff,#64ffda)"},
+  {name:"Passion", value:92, color:"linear-gradient(90deg,#ff9a56,#ff6b9d)"},
+  {name:"Mystery", value:88, color:"linear-gradient(90deg,#1a1a4e,#7b68ee)"},
+];
+
+function buildTraits(){
+  const container = document.getElementById('traitsContainer');
+  traits.forEach(t => {
+    const group = document.createElement('div');
+    group.className = 'trait-bar-group';
+    group.innerHTML = `
+      <div class="trait-label"><span>${t.name}</span><span>${t.value}%</span></div>
+      <div class="trait-bar"><div class="trait-bar-fill" data-width="${t.value}" style="background:${t.color}"></div></div>`;
+    container.appendChild(group);
+  });
+}
+buildTraits();
+
+// Animate trait bars on scroll
+const traitObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.trait-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    }
+  });
+}, {threshold: 0.3});
+traitObserver.observe(document.getElementById('traitsContainer'));
+
+// ===== COMPATIBILITY =====
+const zodiacSigns = [
+  {name:"Aries",symbol:"♈",element:"Fire"},
+  {name:"Taurus",symbol:"♉",element:"Earth"},
+  {name:"Gemini",symbol:"♊",element:"Air"},
+  {name:"Cancer",symbol:"♋",element:"Water"},
+  {name:"Leo",symbol:"♌",element:"Fire"},
+  {name:"Virgo",symbol:"♍",element:"Earth"},
+  {name:"Libra",symbol:"♎",element:"Air"},
+  {name:"Scorpio",symbol:"♏",element:"Water"},
+  {name:"Sagittarius",symbol:"♐",element:"Fire"},
+  {name:"Capricorn",symbol:"♑",element:"Earth"},
+  {name:"Aquarius",symbol:"♒",element:"Air"},
+  {name:"Pisces",symbol:"♓",element:"Water"},
+];
+
+const compatData = {
+  Aries:    {pct:65, vibe:"Fire meets Water — steamy and intense! Aries' bold energy excites your Pisces spirit, but you'll need to balance action with feeling. A dynamic duo when you respect each other's rhythm.", cats:"🐱🔥🐱"},
+  Taurus:   {pct:88, vibe:"Earth grounds your Water beautifully. Taurus offers the stability your mercurial soul craves, while you show them the magic in the mundane. Cozy, sensual, and deeply nurturing.", cats:"🐱💚🐱"},
+  Gemini:   {pct:58, vibe:"Both mutable signs — you understand each other's need for change! But Air and Water speak different languages. When it clicks, it's electric. When it doesn't, it's a beautiful mess.", cats:"🐱💨🐱"},
+  Cancer:   {pct:97, vibe:"COSMIC SOULMATE ALERT! Two Water signs in perfect flow. Cancer understands your depths without you saying a word. This is the kind of connection that feels like coming home.", cats:"🐱💙🐱💙🐱"},
+  Leo:      {pct:62, vibe:"The dreamer and the performer! Leo's fire can warm your waters or create steam. You admire their confidence; they're enchanted by your mystery. Dramatic but magnetic.", cats:"🐱👑🐱"},
+  Virgo:    {pct:82, vibe:"Your opposite sign — and opposites attract HARD. Virgo organizes the beautiful chaos of your Pisces mind. Together you balance the practical and the magical.", cats:"🐱✨🐱"},
+  Libra:    {pct:70, vibe:"Two romantics finding each other! You both crave beauty, harmony, and deep connection. The challenge: making decisions together. The reward: an aesthetically perfect love.", cats:"🐱⚖️🐱"},
+  Scorpio:  {pct:95, vibe:"INTENSE. DEEP. TRANSFORMATIVE. Two Water signs who aren't afraid of the dark. Scorpio matches your emotional depth wave for wave. This bond is unbreakable once forged.", cats:"🐱🦂🐱"},
+  Sagittarius:{pct:60, vibe:"The mystic and the adventurer! Sag expands your world, you deepen theirs. Both mutable, both restless. It works when you give each other freedom to roam.", cats:"🐱🏹🐱"},
+  Capricorn:{pct:78, vibe:"The dreamer and the builder. Cap turns your visions into reality while you remind them to look at the stars. A surprisingly powerful combination of magic and ambition.", cats:"🐱🏔️🐱"},
+  Aquarius: {pct:72, vibe:"Two cosmic weirdos finding their people! Aquarius respects your individuality, you appreciate their vision. Both idealists, both a little otherworldly. Unconventional but beautiful.", cats:"🐱🌀🐱"},
+  Pisces:   {pct:85, vibe:"Two fish swimming together — double the dreams, double the feels! You understand each other on a soul level. Just make sure someone remembers to pay the bills. 😸", cats:"🐱♓🐱♓🐱"},
+};
+
+function buildCompatWheel(){
+  const wheel = document.getElementById('compatWheel');
+  zodiacSigns.forEach(sign => {
+    const btn = document.createElement('button');
+    btn.className = 'zodiac-btn';
+    btn.innerHTML = `<span class="z-symbol">${sign.symbol}</span><span class="z-name">${sign.name}</span>`;
+    btn.addEventListener('click', () => showCompat(sign.name, btn));
+    wheel.appendChild(btn);
+  });
+}
+buildCompatWheel();
+
+function showCompat(name, btn){
+  document.querySelectorAll('.zodiac-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const data = compatData[name];
+  const result = document.getElementById('compatResult');
+  const gradient = data.pct > 85 ? 'linear-gradient(90deg,#64ffda,#ffd700)' :
+                   data.pct > 70 ? 'linear-gradient(90deg,#7b68ee,#00e5ff)' :
+                   data.pct > 55 ? 'linear-gradient(90deg,#ff9a56,#ff6b9d)' :
+                   'linear-gradient(90deg,#ff6b9d,#b8a9ff)';
+  result.innerHTML = `
+    <div style="font-size:2.5rem;margin-bottom:0.5rem">♓ × ${zodiacSigns.find(s=>s.name===name).symbol}</div>
+    <div class="compat-percent">${data.pct}%</div>
+    <div class="compat-meter"><div class="compat-fill" id="compatFill" style="background:${gradient}"></div></div>
+    <div class="compat-vibe">${data.vibe}</div>
+    <div class="compat-cats">${data.cats}</div>`;
+  setTimeout(() => {
+    document.getElementById('compatFill').style.width = data.pct + '%';
+  }, 50);
+}
+
+// ===== MOON PHASE =====
+function getMoonPhase(){
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+
+  // Conway's moon phase algorithm
+  let r = year % 100;
+  r %= 19;
+  if(r > 9) r -= 19;
+  r = ((r * 11) % 30) + month + day;
+  if(month < 3) r += 2;
+  r -= ((year < 2000) ? 4 : 8.3);
+  r = Math.floor(r + 0.5) % 30;
+  if(r < 0) r += 30;
+  return r;
+}
+
+const moonPhases = [
+  {name:"New Moon",desc:"A time of new beginnings and setting intentions. The cosmos is a blank canvas — perfect for a Pisces to dream up their next chapter.",catMsg:"Even in darkness, the cosmic cat sees all. Set your deepest intentions now, Marelle. The universe is listening."},
+  {name:"Waxing Crescent",desc:"Seeds planted during the New Moon begin to sprout. Your energy is building — nurture your visions with patience and care.",catMsg:"The cosmic cat stretches and yawns. Growth is happening, even when you can't see it. Trust the process, Marelle."},
+  {name:"First Quarter",desc:"A time of action and decision. Challenges may arise, but they're just the universe testing your commitment to your dreams.",catMsg:"The cosmic cat sharpens its claws. Time to take action on those Pisces dreams. No more waiting — pounce!"},
+  {name:"Waxing Gibbous",desc:"Refinement and adjustment. You're so close to manifestation. Fine-tune your approach and trust your Pisces intuition.",catMsg:"The cosmic cat purrs with anticipation. Almost there, Marelle. Polish your vision until it gleams like starlight."},
+  {name:"Full Moon",desc:"PEAK ENERGY! Emotions run high, manifestations bloom, and your Pisces sensitivity is supercharged. Embrace the intensity!",catMsg:"The cosmic cat howls at the sky! Your power is at its peak, Marelle. Everything you've been working toward is illuminated."},
+  {name:"Waning Gibbous",desc:"Time to share your gifts with others. Gratitude and generosity amplify your Pisces magic. Give freely and watch it return tenfold.",catMsg:"The cosmic cat brings you a gift. Share your wisdom, Marelle. Your insights are exactly what someone needs to hear today."},
+  {name:"Last Quarter",desc:"Release and let go. What no longer serves your highest self must be shed. Your mutable nature makes this easier than most.",catMsg:"The cosmic cat knocks something off a shelf. Let it fall, Marelle. Not everything deserves space in your life."},
+  {name:"Waning Crescent",desc:"Rest, reflect, and restore. The cycle is completing. Honor your need for solitude — Pisces recharges in the quiet deep.",catMsg:"The cosmic cat curls up in your lap. Rest now, Marelle. The next cycle will need all your beautiful, mercurial energy."}
+];
+
+function displayMoon(){
+  const phase = getMoonPhase();
+  const phaseIndex = Math.floor(phase / 3.75);
+  const data = moonPhases[Math.min(phaseIndex, 7)];
+
+  document.getElementById('moonName').textContent = data.name;
+  document.getElementById('moonDesc').textContent = data.desc;
+  document.getElementById('moonCatWisdom').textContent = data.catMsg;
+
+  // Visual moon
+  const shadow = document.getElementById('moonShadow');
+  const pct = phase / 29.5;
+  if(pct < 0.5){
+    shadow.style.right = '0';
+    shadow.style.left = 'auto';
+    shadow.style.width = (100 - pct * 200) + '%';
+  } else {
+    shadow.style.left = '0';
+    shadow.style.right = 'auto';
+    shadow.style.width = ((pct - 0.5) * 200) + '%';
+  }
+}
+displayMoon();
+
+// ===== COSMIC CAT FORTUNE =====
+const catFaces = ['😸','😻','😺','😽','😼','🙀','😹','🐱','🐈','🐈‍⬛'];
+const catSigns = [
+  'Cosmic Tabby of Neptune','Celestial Calico of the 12th House',
+  'Astral Siamese of the Crescent Moon','Galactic Tuxedo of Jupiter',
+  'Nebula Persian of Venus','Starlight Sphinx of Saturn',
+  'Void Cat of the New Moon','Aurora Mainecoon of the North Star',
+  'Twilight Bengal of Mercury','Ethereal Ragdoll of the Milky Way'
+];
+const catFortunes = [
+  "The stars have aligned in the shape of a cat's cradle. Your creativity will reach new heights this week — channel it before it channels you!",
+  "A purr from the cosmos: someone is about to surprise you with unexpected kindness. Accept it with your whole Pisces heart.",
+  "The cosmic cat sees a journey in your future — not just physical, but spiritual. Pack your intuition; leave your doubts behind.",
+  "Your mercurial energy is your superpower today. Embrace every mood shift — each one carries a message from the universe.",
+  "Neptune is sending you a dream tonight that holds the answer to something you've been pondering. Keep a journal by your bed, Marelle.",
+  "The celestial feline detects a creative breakthrough incoming. It will arrive when you least expect it — probably at 3 AM.",
+  "Your Water element is extra powerful right now. Emotions aren't just feelings — they're data. Trust what they're telling you.",
+  "A cat nap is cosmically prescribed. Rest isn't just rest for a Pisces — it's when your best ideas incubate.",
+  "The stars spell out your name tonight, Marelle. You are seen, you are loved, and you are exactly where you're meant to be.",
+  "The cosmic cat has knocked over a glass of water. Translation: let your emotions flow freely. Holding them back helps no one.",
+  "Your Pisces charm is irresistible today. Use this power wisely — but definitely use it.",
+  "Aquamarine energy surrounds you. Clarity and courage are yours for the taking. The cosmic cat approves.",
+  "Something you lost will find its way back to you. Not everything that leaves is gone forever — Pisces knows this better than anyone.",
+  "The daffodils in your chart are blooming wild. New beginnings aren't just coming — they're HERE. Step forward, Marelle.",
+  "A fellow Water sign is sending you cosmic vibes right now. The connection is real. Follow that thread.",
+];
+
+function generateCatFortune(){
+  const catEl = document.getElementById('cosmicCat');
+  const signEl = document.getElementById('catSign');
+  const fortuneEl = document.getElementById('catFortune');
+  const display = document.getElementById('catDisplay');
+
+  // Spin animation
+  catEl.style.transform = 'scale(0.5) rotate(360deg)';
+  display.style.borderColor = 'var(--mystic-pink)';
+  display.style.boxShadow = '0 0 60px rgba(255,97,210,0.4)';
+
+  setTimeout(() => {
+    catEl.textContent = catFaces[Math.floor(Math.random() * catFaces.length)];
+    signEl.textContent = catSigns[Math.floor(Math.random() * catSigns.length)];
+    fortuneEl.textContent = catFortunes[Math.floor(Math.random() * catFortunes.length)];
+    fortuneEl.classList.add('show');
+    catEl.style.transform = 'scale(1) rotate(0deg)';
+    display.style.borderColor = 'var(--cat-orange)';
+  }, 500);
+
+  setTimeout(() => {
+    display.style.boxShadow = '';
+  }, 2000);
+}
+
+// ===== REOBSERVE AFTER DYNAMIC CONTENT =====
+setTimeout(() => {
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}, 100);
+</script>
+</body>
+</html>
