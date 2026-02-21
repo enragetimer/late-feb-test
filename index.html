@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosmic Tributes</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Quicksand:wght@300;400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Quicksand',sans-serif;
+  background:#0a0a1e;color:#e0daf0;
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:2rem;
+}
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,5vw,3.5rem);font-weight:300;
+  letter-spacing:3px;margin-bottom:0.5rem;
+  background:linear-gradient(135deg,#b8a9ff,#00e5ff,#ff61d2,#d4a96a);
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shimmer 5s ease-in-out infinite;
+}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+p.sub{color:#aaa;letter-spacing:3px;font-size:0.85rem;margin-bottom:3rem}
+.cards{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center}
+a.card{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:280px;height:320px;
+  background:linear-gradient(135deg,rgba(26,21,53,0.8),rgba(13,10,31,0.95));
+  border:1px solid rgba(155,89,182,0.2);
+  border-radius:20px;text-decoration:none;color:#e0daf0;
+  transition:all 0.4s;padding:2rem;text-align:center;
+}
+a.card:hover{transform:translateY(-8px);box-shadow:0 12px 40px rgba(123,104,238,0.2)}
+a.card.marelle:hover{border-color:#7b68ee}
+a.card.brenda:hover{border-color:#d4a96a}
+.card-icon{font-size:3rem;margin-bottom:1rem}
+.card-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;margin-bottom:0.3rem;color:#fff;
+}
+.card-sign{font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem}
+.card.marelle .card-sign{color:#7b68ee}
+.card.brenda .card-sign{color:#d4a96a}
+.card-desc{font-size:0.85rem;color:#aaa;line-height:1.6}
+</style>
+</head>
+<body>
+<h1>Cosmic Tributes</h1>
+<p class="sub">✦ CHOOSE YOUR CONSTELLATION ✦</p>
+<div class="cards">
+  <a href="marelle/" class="card marelle">
+    <div class="card-icon">🐱✨</div>
+    <div class="card-name">Marelle</div>
+    <div class="card-sign">♓ Pisces &bull; March 8, 1994</div>
+    <div class="card-desc">Cosmic Cat Oracle — dreams, intuition, and celestial magic</div>
+  </a>
+  <a href="brenda/" class="card brenda">
+    <div class="card-icon">🔮🐱</div>
+    <div class="card-name">Brenda</div>
+    <div class="card-sign">♒ Aquarius &bull; February 1, 1966</div>
+    <div class="card-desc">Crystal Constellation — vision, beauty, and cosmic wisdom</div>
+  </a>
+</div>
+</body>
+</html>
